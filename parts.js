@@ -24,7 +24,7 @@ window.PARTS_CONFIG = [
     
   ]},{ id: "voice", name: "보이스", images: [
      { name: "활기찬", file: "images/voice/iki.webp" },
-     { name: "온화한", file: "images/voice/honwaka.webp" },
+     { name: "온화한", file: "images/voice/funwari.webp" },
      { name: "당당한", file: "images/voice/massugu.webp" },
      { name: "쿨한", file: "images/voice/cool.webp" },
      { name: "우아한", file: "images/voice/yuuga.webp" },
