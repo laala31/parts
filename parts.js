@@ -23,7 +23,12 @@ window.PARTS_CONFIG = [
      { name: "미스테리어스", file: "images/face/mystery.webp" },
     
   ]},{ id: "voice", name: "보이스", images: [
-    // { name: "보이스 이름", file: "images/voice/voice-a.png" },
+     { name: "활기찬", file: "images/voice/iki.webp" },
+     { name: "온화한", file: "images/voice/honwaka.webp" },
+     { name: "당당한", file: "images/voice/massugu.webp" },
+     { name: "쿨한", file: "images/voice/cool.webp" },
+     { name: "우아한", file: "images/voice/yuuga.webp" },
+     { name: "귀여운", file: "images/voice/kawaii.webp" },
   ]},
   { id: "skin", name: "피부", images: [
     // { name: "피부 이름", file: "images/skin/skin-a.png" },
