@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fff7fb">
+<title>비밀의 아이프리 · 마이캐릭터 파츠표</title>
+<style>
+:root{--pink:#e77cae;--pink2:#fff0f7;--ink:#392b35;--muted:#8b7a85;--line:#efd8e4;--paper:#fff;--bg:#fff8fb}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input{font:inherit}button{cursor:pointer}
+.wrap{max-width:1120px;margin:auto;padding:24px 16px 44px}
+header{text-align:center;margin:0 auto 22px}.eyebrow{font-size:.78rem;letter-spacing:.12em;font-weight:800;color:#c04c87}
+h1{font-size:clamp(1.6rem,4vw,2.45rem);margin:8px 0}.intro{color:var(--muted);line-height:1.6;margin:0 auto;max-width:720px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:16px;box-shadow:0 8px 25px #743b5708}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field label{display:block;font-size:.83rem;font-weight:750;margin-bottom:6px}.field input{width:100%;min-width:0;border:1px solid var(--line);border-radius:10px;padding:10px 12px;outline-color:var(--pink)}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}button.action{border:0;border-radius:11px;padding:10px 14px;font-weight:750}.primary{background:#c84d8b;color:#fff}.soft{background:var(--pink2);color:#9a386a}.outline{background:white;border:1px solid var(--line)!important;color:var(--ink)}
+.note{font-size:.82rem;line-height:1.55;color:var(--muted);margin:12px 0 0}
+.parts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.part-card{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;min-width:0}
+.part-head{padding:10px 12px;background:#fff0f7;border-bottom:1px solid var(--line);font-weight:800;display:flex;justify-content:space-between;gap:5px;align-items:center}
+.part-num{font-size:.7rem;color:#b85b88;white-space:nowrap}
+.part-preview{width:100%;aspect-ratio:1.1;background:#fffafd;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.part-preview img{width:100%;height:100%;object-fit:contain;display:block}
+.placeholder{color:#d5a3bb;text-align:center;padding:12px;font-size:.85rem;line-height:1.5}
+.part-name{font-weight:800;color:#9c4771;display:block}
+.part-actions{padding:9px;display:flex;gap:6px}
+.part-actions button{flex:1;min-width:0;padding:8px 5px;border-radius:9px;font-size:.8rem;font-weight:750;border:0}
+.choose{background:#c84d8b;color:#fff}.remove{background:#f7edf2;color:#79566a}
+.modal{position:fixed;inset:0;background:#26131fa8;display:none;align-items:center;justify-content:center;padding:14px;z-index:20}.modal.open{display:flex}
+.dialog{width:min(820px,100%);max-height:88dvh;background:#fff;border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.dialog-head{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line)}.dialog-head h2{font-size:1.1rem;margin:0;flex:1}
+.close{background:#f7eaf1;border:0;border-radius:9px;padding:8px 11px}
+.picker-tools{padding:10px 14px;border-bottom:1px solid var(--line)}.picker-tools input{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px}
+.picker-grid{padding:12px;overflow:auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.pick{border:1px solid var(--line);background:#fffafd;border-radius:11px;padding:6px;min-width:0;color:var(--ink)}
+.pick:hover{border-color:var(--pink)}.pick img{width:100%;aspect-ratio:1;object-fit:contain;display:block;background:#fff}.pick span{display:block;font-size:.77rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-top:6px}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:28px 12px;line-height:1.7}
+.footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:18px}
+@media(max-width:760px){.parts{grid-template-columns:repeat(3,minmax(0,1fr))}.picker-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:480px){.wrap{padding:18px 10px 32px}.fields{grid-template-columns:1fr}.panel{padding:12px}.parts{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.part-head{padding:9px;font-size:.9rem}.part-preview{aspect-ratio:1}.part-actions{padding:7px}.part-actions button{font-size:.75rem}.picker-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;padding:9px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header>
+ <div class="eyebrow">SECRET AIPRI · MY CHARACTER PARTS</div>
+ <h1 id="pageHeading">마이캐릭터 파츠표</h1>
+ <p class="intro">파츠 종류별로 이미지를 골라 나만의 마이캐릭터 파츠표를 만들어 보세요. 마음에 드는 파츠를 선택한 뒤 PNG 또는 JPG로 저장할 수 있어요.</p>
+</header>
+<section class="panel">
+ <div class="fields">
+  <div class="field"><label for="chartTitle">표 제목</label><input id="chartTitle" maxlength="70" value="나의 마이캐릭터 파츠표"></div>
+  <div class="field"><label for="chartNote">설명 (선택)</label><input id="chartNote" maxlength="120" value="내가 좋아하는 파츠 조합 ♡"></div>
+ </div>
+ <div class="actions">
+  <button class="action primary" id="savePng">PNG로 저장</button>
+  <button class="action primary" id="saveJpg">JPG로 저장</button>
+  <button class="action soft" id="clearAll">전체 비우기</button>
+ </div>
+ <p class="note">각 파츠 카드의 ‘파츠 고르기’를 눌러 해당 종류에 등록된 이미지 중에서 선택하세요. 이미지를 바꾸거나 개별 삭제할 수도 있어요. 현재는 예시 이미지가 들어 있지 않으므로, 사이트 제작자가 <code>images</code> 폴더와 <code>parts.js</code>에 이미지 목록을 등록하면 선택 목록이 표시됩니다.</p>
+</section>
+<section id="exportArea" class="panel">
+ <h2 id="previewTitle" style="text-align:center;margin:2px 0 5px;overflow-wrap:anywhere">나의 마이캐릭터 파츠표</h2>
+ <p id="previewNote" style="text-align:center;color:var(--muted);margin:0 0 16px;overflow-wrap:anywhere">내가 좋아하는 파츠 조합 ♡</p>
+ <div class="parts" id="partsGrid"></div>
+</section>
+<p class="footer">이미지 선택 내용은 브라우저 안에서만 처리되며 서버로 전송되지 않습니다.</p>
+</main>
+
+<div class="modal" id="pickerModal" role="dialog" aria-modal="true" aria-labelledby="pickerTitle">
+ <div class="dialog">
+  <div class="dialog-head"><h2 id="pickerTitle">파츠 선택</h2><button class="close" id="closePicker">닫기 ✕</button></div>
+  <div class="picker-tools"><input type="search" id="searchImages" placeholder="이 파츠 목록에서 이름 검색…" aria-label="이미지 검색"></div>
+  <div class="picker-grid" id="pickerGrid"></div>
+ </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="parts.js"></script>
+<script>
+const partDefinitions = window.PARTS_CONFIG || [];
+const selected = {};
+let activePartId = null;
+const $ = id => document.getElementById(id);
+const grid = $("partsGrid"), modal = $("pickerModal"), pickerGrid = $("pickerGrid");
+
+function buildCards(){
+ grid.innerHTML = "";
+ partDefinitions.forEach((part,index)=>{
+  selected[part.id] = null;
+  const card=document.createElement("article"); card.className="part-card";
+  const head=document.createElement("div"); head.className="part-head";
+  const title=document.createElement("span"); title.textContent=part.name;
+  const num=document.createElement("span"); num.className="part-num"; num.textContent=String(index+1).padStart(2,"0")+"/13";
+  head.append(title,num);
+  const preview=document.createElement("div"); preview.className="part-preview"; preview.id=`preview-${part.id}`;
+  const placeholder=document.createElement("div"); placeholder.className="placeholder"; placeholder.innerHTML='<span class="part-name">선택된 파츠 없음</span>파츠를 골라 주세요';
+  preview.append(placeholder);
+  const actions=document.createElement("div"); actions.className="part-actions";
+  const choose=document.createElement("button"); choose.className="choose"; choose.textContent="파츠 고르기"; choose.addEventListener("click",()=>openPicker(part.id));
+  const remove=document.createElement("button"); remove.className="remove"; remove.textContent="삭제"; remove.addEventListener("click",()=>{selected[part.id]=null;renderPart(part)});
+  actions.append(choose,remove); card.append(head,preview,actions); grid.append(card);
+ });
+}
+function renderPart(part){
+ const preview=$(`preview-${part.id}`); preview.innerHTML="";
+ const item=selected[part.id];
+ if(!item){const empty=document.createElement("div");empty.className="placeholder";empty.innerHTML='<span class="part-name">선택된 파츠 없음</span>파츠를 골라 주세요';preview.append(empty);return;}
+ const img=document.createElement("img");img.src=item.file;img.alt=item.name;img.crossOrigin="anonymous";preview.append(img);
+}
+function openPicker(id){
+ activePartId=id;
+ const part=partDefinitions.find(p=>p.id===id);
+ $("pickerTitle").textContent=part.name+" 선택";
+ $("searchImages").value=""; renderPicker("");
+ modal.classList.add("open");
+}
+function closePicker(){modal.classList.remove("open");activePartId=null}
+function renderPicker(query){
+ pickerGrid.innerHTML="";
+ const part=partDefinitions.find(p=>p.id===activePartId);
+ const list=(part?.images||[]).filter(item=>item.name.toLowerCase().includes(query.toLowerCase()));
+ if(!list.length){
+  const empty=document.createElement("div");empty.className="empty";
+  empty.innerHTML="이 파츠 종류에 등록된 이미지가 아직 없어요.<br><br>사이트 제작자는 <code>parts.js</code>에서 해당 파츠의 <code>images</code> 목록을 추가해 주세요.";
+  pickerGrid.append(empty);return;
+ }
+ list.forEach(item=>{
+  const button=document.createElement("button");button.className="pick";button.type="button";
+  const img=document.createElement("img");img.src=item.file;img.alt=item.name;img.loading="lazy";
+  const name=document.createElement("span");name.textContent=item.name;
+  button.append(img,name);button.addEventListener("click",()=>{selected[activePartId]=item;renderPart(part);closePicker()});pickerGrid.append(button);
+ });
+}
+$("chartTitle").addEventListener("input",()=> $("previewTitle").textContent=$("chartTitle").value);
+$("chartNote").addEventListener("input",()=> $("previewNote").textContent=$("chartNote").value);
+$("closePicker").addEventListener("click",closePicker);
+$("searchImages").addEventListener("input",e=>renderPicker(e.target.value));
+modal.addEventListener("click",e=>{if(e.target===modal)closePicker()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closePicker()});
+$("clearAll").addEventListener("click",()=>{if(confirm("선택한 파츠를 모두 비울까요?")){partDefinitions.forEach(p=>{selected[p.id]=null;renderPart(p)})}});
+async function saveImage(type){
+ const button=type==="png"?$("savePng"):$("saveJpg"),old=button.textContent;
+ button.disabled=true;button.textContent="이미지 만드는 중…";
+ try{
+  if(!window.html2canvas)throw new Error("저장 라이브러리를 불러오지 못했습니다. 인터넷 연결을 확인해 주세요.");
+  const canvas=await html2canvas($("exportArea"),{backgroundColor:"#ffffff",scale:Math.min(2,window.devicePixelRatio||1.5),useCORS:true,logging:false});
+  const mime=type==="png"?"image/png":"image/jpeg";
+  const link=document.createElement("a");
+  const safe=($("chartTitle").value||"my-character-parts").replace(/[\\/:*?"<>|]/g,"-").trim()||"my-character-parts";
+  link.download=`${safe}.${type}`;link.href=canvas.toDataURL(mime,type==="jpg"?.92:undefined);link.click();
+ }catch(err){alert("이미지 저장에 실패했어요.\\n"+err.message)}
+ finally{button.disabled=false;button.textContent=old}
+}
+$("savePng").addEventListener("click",()=>saveImage("png"));
+$("saveJpg").addEventListener("click",()=>saveImage("jpg"));
+buildCards();
+</script>
+</body>
+</html>
