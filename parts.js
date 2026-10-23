@@ -31,7 +31,12 @@ window.PARTS_CONFIG = [
      { name: "귀여운", file: "images/voice/kawaii.webp" },
   ]},
   { id: "skin", name: "피부", images: [
-    // { name: "피부 이름", file: "images/skin/skin-a.png" },
+     { name: "A", file: "images/skin/a.webp" },
+     { name: "B", file: "images/skin/b.webp" },
+     { name: "C", file: "images/skin/c.webp" },
+     { name: "D", file: "images/skin/d.webp" },
+     { name: "E", file: "images/skin/e.webp" },
+     { name: "F", file: "images/skin/f.webp" },
   ]},
   { id: "bangs", name: "앞머리", images: [
     // { name: "앞머리 이름", file: "images/bangs/bangs-a.png" },
