@@ -66,6 +66,11 @@ window.PARTS_CONFIG = [
     // { name: "원포인트 이름", file: "images/one-point/one-point-a.png" },
   ]},
   { id: "onegai-jewel", name: "오네가이 쥬얼", images: [
-    // { name: "쥬얼 이름", file: "images/onegai-jewel/jewel-a.png" },
+     { name: "좋아", file: "images/onegai-jewel/suki.webp" },
+     { name: "꿈", file: "images/onegai-jewel/yume.webp" },
+     { name: "우정", file: "images/onegai-jewel/yuujou.webp" },
+     { name: "용기", file: "images/onegai-jewel/yuuki.webp" },
+     { name: "정열", file: "images/onegai-jewel/jounetu.webp" },
+     { name: "희망", file: "images/onegai-jewel/kibou.webp" },
   ]}
 ];
