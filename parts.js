@@ -15,6 +15,13 @@ window.PARTS_CONFIG = [
   { id: "face", name: "페이스", images: [
      { name: "귀여운", file: "images/face/otome.webp" },
      { name: "활기찬", file: "images/face/genki.webp" },
+     { name: "온화한", file: "images/face/honwaka.webp" },
+     { name: "순수한", file: "images/face/hitamuki.webp" },
+     { name: "발랄한", file: "images/face/haturatu.webp" },
+     { name: "뷰티", file: "images/face/beauty.webp" },
+     { name: "로맨틱", file: "images/face/romantic.webp" },
+     { name: "미스테리어스", file: "images/face/mystery.webp" },
+    
   ]},{ id: "voice", name: "보이스", images: [
     // { name: "보이스 이름", file: "images/voice/voice-a.png" },
   ]},
