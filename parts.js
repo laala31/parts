@@ -13,8 +13,8 @@
  */
 window.PARTS_CONFIG = [
   { id: "face", name: "페이스", images: [
-    // { name: "귀여운", file: "C:\Users\1\Downloads\secret-aipri-parts-chart\secret_aipri_parts_chart\images\face/otome.webp" },
-    // { name: "활기찬", file: "images/face/genki.webp" },
+     { name: "귀여운", file: "images/face/otome.webp" },
+     { name: "활기찬", file: "images/face/genki.webp" },
   ]},{ id: "voice", name: "보이스", images: [
     // { name: "보이스 이름", file: "images/voice/voice-a.png" },
   ]},
