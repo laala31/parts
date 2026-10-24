@@ -135,8 +135,33 @@ body {
     padding: 7px 3px;
   }
 }
+  
+.font-section {
+  margin: 14px 0 18px;
+}
+
+.font-select {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  padding: 11px 12px;
+  border: 1px solid var(--theme-line, #efd8e4);
+  border-radius: 10px;
+  background: var(--theme-surface, #fff);
+  color: var(--theme-ink, #55434d);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.font-select:focus-visible {
+  outline: 2px solid var(--theme-accent, #e77cae);
+  outline-offset: 2px;
+}
 </style>
 </head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <body>
 <main class="wrap">
 <header>
@@ -152,6 +177,15 @@ body {
 <div class="theme-section">
   <label class="theme-label">테마 컬러</label>
   <div id="themePicker" class="theme-picker"></div>
+</div>
+<div class="font-section">
+  <label class="theme-label" for="fontSelect">폰트</label>
+  <select id="fontSelect" class="font-select">
+    <option value="Jua">Jua · 폰트1</option>
+    <option value="Noto Sans KR">Noto Sans KR · 폰트2</option>
+    <option value="Noto Serif KR">Noto Serif KR · 폰트3</option>
+    <option value="Nanum Pen Script">Nanum Pen Script · 폰트4</option>
+  </select>
 </div>
  <div class="actions">
   <button class="action primary" id="savePng">PNG로 저장</button>
@@ -298,8 +332,31 @@ async function saveImage(type) {
     }
 
     // 원본 파츠표를 복제해 저장 전용 레이아웃 생성
+    
+    // 폰트가 모두 로드될 때까지 대기
+    await document.fonts.ready;
+
+    // 원본 파츠표를 복제해 저장 전용 레이아웃 생성
     exportCopy = $("exportArea").cloneNode(true);
     exportCopy.id = "exportAreaForSaving";
+
+    // 선택한 폰트를 저장 이미지에도 적용
+    const selectedFont = $("fontSelect").value;
+
+    exportCopy.style.setProperty(
+      "font-family",
+      `"${selectedFont}", sans-serif`,
+      "important"
+    );
+
+    exportCopy.querySelectorAll("*").forEach(element => {
+      element.style.setProperty(
+        "font-family",
+        `"${selectedFont}", sans-serif`,
+        "important"
+      );
+    });
+
 
     Object.assign(exportCopy.style, {
       position: "fixed",
@@ -578,6 +635,30 @@ try {
 }
 
 applyTheme(savedTheme);
+  
+const fontSelect = document.getElementById("fontSelect");
+
+function applyChartFont() {
+  const font = fontSelect.value;
+
+  document.getElementById("exportArea").style.fontFamily =
+    `"${font}", sans-serif`;
+
+  document.querySelectorAll("#exportArea *").forEach((element) => {
+    element.style.fontFamily = `"${font}", sans-serif`;
+  });
+
+  localStorage.setItem("partsChartFont", font);
+}
+
+const savedFont = localStorage.getItem("partsChartFont");
+
+if (savedFont && [...fontSelect.options].some(option => option.value === savedFont)) {
+  fontSelect.value = savedFont;
+}
+
+fontSelect.addEventListener("change", applyChartFont);
+applyChartFont();
 buildCards();
 </script>
 </body>
