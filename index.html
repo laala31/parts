@@ -139,19 +139,6 @@ $("searchImages").addEventListener("input",e=>renderPicker(e.target.value));
 modal.addEventListener("click",e=>{if(e.target===modal)closePicker()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closePicker()});
 $("clearAll").addEventListener("click",()=>{if(confirm("선택한 파츠를 모두 비울까요?")){partDefinitions.forEach(p=>{selected[p.id]=null;renderPart(p)})}});
-async function saveImage(type){
- const button=type==="png"?$("savePng"):$("saveJpg"),old=button.textContent;
- button.disabled=true;button.textContent="이미지 만드는 중…";
- try{
-  if(!window.html2canvas)throw new Error("저장 라이브러리를 불러오지 못했습니다. 인터넷 연결을 확인해 주세요.");
-  const canvas=await html2canvas($("exportArea"),{backgroundColor:"#ffffff",scale:Math.min(2,window.devicePixelRatio||1.5),useCORS:true,logging:false});
-  const mime=type==="png"?"image/png":"image/jpeg";
-  const link=document.createElement("a");
-  const safe=($("chartTitle").value||"my-character-parts").replace(/[\\/:*?"<>|]/g,"-").trim()||"my-character-parts";
-  link.download=`${safe}.${type}`;link.href=canvas.toDataURL(mime,type==="jpg"?.92:undefined);link.click();
- }catch(err){alert("이미지 저장에 실패했어요.\\n"+err.message)}
- finally{button.disabled=false;button.textContent=old}
-}
 
 function showMobileImagePreview(dataUrl, type, filename) {
   let overlay = document.getElementById("mobileImagePreview");
@@ -159,12 +146,10 @@ function showMobileImagePreview(dataUrl, type, filename) {
   if (!overlay) {
     overlay = document.createElement("div");
     overlay.id = "mobileImagePreview";
-    overlay.style.cssText = `
-      position:fixed;inset:0;z-index:9999;
-      background:#fff8fb;padding:16px;
-      overflow:auto;display:flex;flex-direction:column;
-      align-items:center;gap:14px;
-    `;
+    overlay.style.cssText =
+      "position:fixed;inset:0;z-index:9999;background:#fff8fb;" +
+      "padding:16px;overflow:auto;display:flex;flex-direction:column;" +
+      "align-items:center;gap:14px;";
 
     const close = document.createElement("button");
     close.textContent = "닫기 ✕";
@@ -175,15 +160,15 @@ function showMobileImagePreview(dataUrl, type, filename) {
 
     const message = document.createElement("p");
     message.textContent =
-      "이미지를 길게 누른 다음 ‘사진에 저장’ 또는 ‘이미지 저장’을 선택하세요.";
+      "이미지를 길게 눌러 ‘사진에 저장’ 또는 ‘이미지 저장’을 선택하세요.";
     message.style.cssText =
       "font-size:14px;line-height:1.6;text-align:center;margin:0;";
 
     const image = document.createElement("img");
     image.id = "mobilePreviewImage";
     image.style.cssText =
-      "display:block;max-width:100%;height:auto;" +
-      "object-fit:contain;background:white;";
+      "display:block;width:100%;height:auto;object-fit:contain;" +
+      "background:white;";
 
     const filenameText = document.createElement("p");
     filenameText.id = "mobilePreviewFilename";
@@ -202,26 +187,116 @@ function showMobileImagePreview(dataUrl, type, filename) {
 async function saveImage(type) {
   const button = type === "png" ? $("savePng") : $("saveJpg");
   const old = button.textContent;
+  let exportCopy = null;
 
   button.disabled = true;
   button.textContent = "이미지 만드는 중…";
 
   try {
     if (!window.html2canvas) {
-      throw new Error(
-        "저장 라이브러리를 불러오지 못했습니다. 인터넷 연결을 확인해 주세요."
-      );
+      throw new Error("저장 라이브러리를 불러오지 못했습니다. 인터넷 연결을 확인해 주세요.");
     }
 
-    const canvas = await html2canvas($("exportArea"), {
+    // 원본 파츠표를 복제해 저장 전용 레이아웃 생성
+    exportCopy = $("exportArea").cloneNode(true);
+    exportCopy.id = "exportAreaForSaving";
+
+    Object.assign(exportCopy.style, {
+      position: "fixed",
+      left: "-20000px",
+      top: "0",
+      width: "1400px",
+      maxWidth: "none",
+      height: "auto",
+      margin: "0",
+      padding: "28px",
+      background: "#ffffff",
+      boxSizing: "border-box",
+      overflow: "visible"
+    });
+
+    // 저장 이미지에만 5열 배치 적용
+    const partsGrid = exportCopy.querySelector("#partsGrid");
+
+    Object.assign(partsGrid.style, {
+      display: "grid",
+      gridTemplateColumns: "repeat(5, minmax(0, 1fr))",
+      gap: "16px",
+      width: "100%"
+    });
+
+    // 저장 이미지에는 선택/삭제 버튼을 표시하지 않음
+    partsGrid.querySelectorAll(".part-actions").forEach(el => el.remove());
+
+    // 파츠 카드와 이미지 크기 조정
+    partsGrid.querySelectorAll(".part-card").forEach(card => {
+      Object.assign(card.style, {
+        minWidth: "0",
+        border: "1px solid #efd8e4",
+        borderRadius: "14px",
+        overflow: "hidden",
+        breakInside: "avoid"
+      });
+    });
+
+    partsGrid.querySelectorAll(".part-head").forEach(head => {
+      Object.assign(head.style, {
+        minHeight: "46px",
+        padding: "10px",
+        fontSize: "16px"
+      });
+    });
+
+    partsGrid.querySelectorAll(".part-preview").forEach(preview => {
+      Object.assign(preview.style, {
+        height: "190px",
+        minHeight: "190px",
+        aspectRatio: "auto",
+        background: "#fffafd"
+      });
+    });
+
+    partsGrid.querySelectorAll(".part-preview img").forEach(img => {
+      Object.assign(img.style, {
+        width: "100%",
+        height: "190px",
+        objectFit: "contain"
+      });
+    });
+
+    partsGrid.querySelectorAll(".placeholder").forEach(el => {
+      Object.assign(el.style, {
+        minHeight: "190px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center"
+      });
+    });
+
+    document.body.appendChild(exportCopy);
+
+    // 복제한 이미지가 로드될 때까지 대기
+    const images = [...exportCopy.querySelectorAll("img")];
+    await Promise.all(images.map(img => {
+      if (img.complete) return Promise.resolve();
+
+      return new Promise(resolve => {
+        img.onload = resolve;
+        img.onerror = resolve;
+      });
+    }));
+
+    const canvas = await html2canvas(exportCopy, {
       backgroundColor: "#ffffff",
       scale: Math.min(2, window.devicePixelRatio || 1.5),
       useCORS: true,
-      logging: false
+      logging: false,
+      width: 1400,
+      windowWidth: 1440
     });
 
     const mime = type === "png" ? "image/png" : "image/jpeg";
-
     const safe = ($("chartTitle").value || "my-character-parts")
       .replace(/[\\/:*?"<>|]/g, "-")
       .trim() || "my-character-parts";
@@ -231,7 +306,6 @@ async function saveImage(type) {
       type === "jpg" ? 0.92 : undefined
     );
 
-    // iPhone / iPad에서는 이미지 미리보기로 열어 직접 저장하도록 함
     const isAppleMobile =
       /iPhone|iPad|iPod/.test(navigator.userAgent) ||
       (navigator.platform === "MacIntel" &&
@@ -239,21 +313,20 @@ async function saveImage(type) {
 
     if (isAppleMobile) {
       showMobileImagePreview(dataUrl, type, safe);
-      return;
+    } else {
+      const link = document.createElement("a");
+      link.download = `${safe}.${type}`;
+      link.href = dataUrl;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
     }
-
-    // PC 및 기존 다운로드 지원 환경
-    const link = document.createElement("a");
-    link.download = `${safe}.${type}`;
-    link.href = dataUrl;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
 
   } catch (err) {
     console.error("이미지 저장 오류:", err);
     alert("이미지 저장에 실패했어요.\n" + err.message);
   } finally {
+    if (exportCopy) exportCopy.remove();
     button.disabled = false;
     button.textContent = old;
   }
@@ -261,6 +334,7 @@ async function saveImage(type) {
 
 $("savePng").addEventListener("click", () => saveImage("png"));
 $("saveJpg").addEventListener("click", () => saveImage("jpg"));
+
 
 buildCards();
 </script>
