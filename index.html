@@ -152,8 +152,116 @@ async function saveImage(type){
  }catch(err){alert("이미지 저장에 실패했어요.\\n"+err.message)}
  finally{button.disabled=false;button.textContent=old}
 }
-$("savePng").addEventListener("click",()=>saveImage("png"));
-$("saveJpg").addEventListener("click",()=>saveImage("jpg"));
+
+function showMobileImagePreview(dataUrl, type, filename) {
+  let overlay = document.getElementById("mobileImagePreview");
+
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.id = "mobileImagePreview";
+    overlay.style.cssText = `
+      position:fixed;inset:0;z-index:9999;
+      background:#fff8fb;padding:16px;
+      overflow:auto;display:flex;flex-direction:column;
+      align-items:center;gap:14px;
+    `;
+
+    const close = document.createElement("button");
+    close.textContent = "닫기 ✕";
+    close.style.cssText =
+      "align-self:flex-end;padding:10px 16px;border:0;" +
+      "border-radius:10px;background:#f7eaf1;font:inherit;";
+    close.addEventListener("click", () => overlay.remove());
+
+    const message = document.createElement("p");
+    message.textContent =
+      "이미지를 길게 누른 다음 ‘사진에 저장’ 또는 ‘이미지 저장’을 선택하세요.";
+    message.style.cssText =
+      "font-size:14px;line-height:1.6;text-align:center;margin:0;";
+
+    const image = document.createElement("img");
+    image.id = "mobilePreviewImage";
+    image.style.cssText =
+      "display:block;max-width:100%;height:auto;" +
+      "object-fit:contain;background:white;";
+
+    const filenameText = document.createElement("p");
+    filenameText.id = "mobilePreviewFilename";
+    filenameText.style.cssText =
+      "font-size:12px;color:#8b7a85;overflow-wrap:anywhere;";
+
+    overlay.append(close, message, image, filenameText);
+    document.body.append(overlay);
+  }
+
+  document.getElementById("mobilePreviewImage").src = dataUrl;
+  document.getElementById("mobilePreviewFilename").textContent =
+    filename + "." + type;
+}
+
+async function saveImage(type) {
+  const button = type === "png" ? $("savePng") : $("saveJpg");
+  const old = button.textContent;
+
+  button.disabled = true;
+  button.textContent = "이미지 만드는 중…";
+
+  try {
+    if (!window.html2canvas) {
+      throw new Error(
+        "저장 라이브러리를 불러오지 못했습니다. 인터넷 연결을 확인해 주세요."
+      );
+    }
+
+    const canvas = await html2canvas($("exportArea"), {
+      backgroundColor: "#ffffff",
+      scale: Math.min(2, window.devicePixelRatio || 1.5),
+      useCORS: true,
+      logging: false
+    });
+
+    const mime = type === "png" ? "image/png" : "image/jpeg";
+
+    const safe = ($("chartTitle").value || "my-character-parts")
+      .replace(/[\\/:*?"<>|]/g, "-")
+      .trim() || "my-character-parts";
+
+    const dataUrl = canvas.toDataURL(
+      mime,
+      type === "jpg" ? 0.92 : undefined
+    );
+
+    // iPhone / iPad에서는 이미지 미리보기로 열어 직접 저장하도록 함
+    const isAppleMobile =
+      /iPhone|iPad|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === "MacIntel" &&
+       navigator.maxTouchPoints > 1);
+
+    if (isAppleMobile) {
+      showMobileImagePreview(dataUrl, type, safe);
+      return;
+    }
+
+    // PC 및 기존 다운로드 지원 환경
+    const link = document.createElement("a");
+    link.download = `${safe}.${type}`;
+    link.href = dataUrl;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+  } catch (err) {
+    console.error("이미지 저장 오류:", err);
+    alert("이미지 저장에 실패했어요.\n" + err.message);
+  } finally {
+    button.disabled = false;
+    button.textContent = old;
+  }
+}
+
+$("savePng").addEventListener("click", () => saveImage("png"));
+$("saveJpg").addEventListener("click", () => saveImage("jpg"));
+
 buildCards();
 </script>
 </body>
