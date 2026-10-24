@@ -200,10 +200,10 @@ window.PARTS_CONFIG = [
      { name: "우정 쥬얼 그린", file: "images/hair-color/87.webp" },
      { name: "용기 쥬얼 옐로", file: "images/hair-color/88.webp" },
   ]},
-  { id: "highlights", name: "브릿지", images: [
+  { id: "highlights", name: "메시 타입", images: [
     // { name: "브릿지 이름", file: "images/highlights/highlights-a.png" },
   ]},
-  { id: "highlight-color", name: "브릿지 컬러", images: [
+  { id: "highlight-color", name: "메시 컬러", images: [
      { name: "뷰티 블랙", file: "images/hair-color/1.webp" },
      { name: "꾀꼬리 애쉬", file: "images/hair-color/2.webp" },
      { name: "선샤인 옐로", file: "images/hair-color/3.webp" },
