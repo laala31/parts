@@ -559,7 +559,7 @@ window.PARTS_CONFIG = [
      { name: "부탁해 프리즘 스티커", file: "images/one-point/22.webp" },
      { name: "서머 드롭 선글라스", file: "images/one-point/23.webp" },
      { name: "구미구미 스티커", file: "images/one-point/24.webp" },
-     { name: "고딕 하트 아이패치", file: "images/one-point/.webp" },
+     { name: "고딕 하트 아이패치", file: "images/one-point/25.webp" },
   ]},
   { id: "onegai-jewel", name: "오네가이 쥬얼", images: [
      { name: "좋아", file: "images/onegai-jewel/suki.webp" },
