@@ -158,10 +158,10 @@ body {
   outline-offset: 2px;
 }
 </style>
-</head>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
 <body>
 <main class="wrap">
 <header>
@@ -648,10 +648,22 @@ function applyChartFont() {
     element.style.fontFamily = `"${font}", sans-serif`;
   });
 
-  localStorage.setItem("partsChartFont", font);
+
+  try {
+    localStorage.setItem("partsChartFont", font);
+  } catch (error) {
+    // 폰트 저장이 제한된 환경에서도 폰트 변경은 작동합니다.
+  }
 }
 
-const savedFont = localStorage.getItem("partsChartFont");
+let savedFont = null;
+
+try {
+  savedFont = localStorage.getItem("partsChartFont");
+} catch (error) {
+  // 기본 폰트 사용
+}
+
 
 if (savedFont && [...fontSelect.options].some(option => option.value === savedFont)) {
   fontSelect.value = savedFont;
