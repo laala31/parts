@@ -56,19 +56,18 @@ h1{font-size:clamp(1.6rem,4vw,2.45rem);margin:8px 0}.intro{color:var(--muted);li
 }
 .theme-option {
   min-width: 0;
-  padding: 8px 4px;
+  padding: 5px;
+  aspect-ratio: 1;
   border: 2px solid var(--theme-line, #efd8e4);
   border-radius: 11px;
   background: var(--theme-surface, #fff);
-  color: var(--theme-ink, #392b35);
-  font-size: .76rem;
-  font-weight: 700;
+  cursor: pointer;
 }
 .theme-option .theme-swatch {
   display: block;
   width: 100%;
-  height: 22px;
-  margin-bottom: 5px;
+  height: 100%;
+  min-height: 22px;
   border-radius: 6px;
   background: var(--swatch);
 }
@@ -559,8 +558,9 @@ themes.forEach(theme => {
   button.dataset.theme = theme.name;
   button.setAttribute("aria-pressed", "false");
   button.style.setProperty("--swatch", theme.accent);
-  button.innerHTML =
-    '<span class="theme-swatch"></span>' + theme.name;
+  button.innerHTML = '<span class="theme-swatch"></span>';
+  button.setAttribute("aria-label", theme.name);
+  button.title = theme.name;
 
   button.addEventListener("click", () => {
     applyTheme(theme.name);
