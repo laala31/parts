@@ -39,6 +39,103 @@ h1{font-size:clamp(1.6rem,4vw,2.45rem);margin:8px 0}.intro{color:var(--muted);li
 .footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:18px}
 @media(max-width:760px){.parts{grid-template-columns:repeat(3,minmax(0,1fr))}.picker-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(max-width:480px){.wrap{padding:18px 10px 32px}.fields{grid-template-columns:1fr}.panel{padding:12px}.parts{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.part-head{padding:9px;font-size:.9rem}.part-preview{aspect-ratio:1}.part-actions{padding:7px}.part-actions button{font-size:.75rem}.picker-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;padding:9px}}
+/* 테마 컬러 선택 UI */
+.theme-section {
+  margin-top: 16px;
+}
+.theme-label {
+  display: block;
+  font-size: .85rem;
+  font-weight: 800;
+  margin-bottom: 9px;
+}
+.theme-picker {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+.theme-option {
+  min-width: 0;
+  padding: 8px 4px;
+  border: 2px solid var(--theme-line, #efd8e4);
+  border-radius: 11px;
+  background: var(--theme-surface, #fff);
+  color: var(--theme-ink, #392b35);
+  font-size: .76rem;
+  font-weight: 700;
+}
+.theme-option .theme-swatch {
+  display: block;
+  width: 100%;
+  height: 22px;
+  margin-bottom: 5px;
+  border-radius: 6px;
+  background: var(--swatch);
+}
+.theme-option[aria-pressed="true"] {
+  outline: 2px solid var(--theme-accent, #e77cae);
+  outline-offset: 2px;
+}
+.theme-option:focus-visible {
+  outline: 3px solid var(--theme-accent, #e77cae);
+  outline-offset: 2px;
+}
+
+/* 선택한 테마를 사이트 전체에 적용 */
+body {
+  background: var(--theme-bg, #fff8fb);
+  color: var(--theme-ink, #392b35);
+}
+.panel, .part-card, .dialog {
+  background: var(--theme-surface, #fff);
+  border-color: var(--theme-line, #efd8e4);
+}
+.part-head {
+  background: var(--theme-soft, #fff0f7);
+  border-color: var(--theme-line, #efd8e4);
+}
+.part-num, .part-name {
+  color: var(--theme-accent-dark, #9c4771);
+}
+.part-preview, .pick {
+  background: var(--theme-preview, #fffafd);
+}
+.part-preview {
+  border-color: var(--theme-line, #efd8e4);
+}
+.primary, .choose {
+  background: var(--theme-accent, #e77cae);
+  color: var(--theme-button-text, #fff);
+}
+.soft, .remove, .close {
+  background: var(--theme-soft, #fff0f7);
+  color: var(--theme-accent-dark, #9c4771);
+}
+.outline, .field input, .picker-tools input, .pick {
+  border-color: var(--theme-line, #efd8e4);
+  color: var(--theme-ink, #392b35);
+}
+.field input, .picker-tools input {
+  background: var(--theme-surface, #fff);
+}
+.pick:hover {
+  border-color: var(--theme-accent, #e77cae);
+}
+.placeholder, .note, .footer, .intro {
+  color: var(--theme-muted, #8b7a85);
+}
+.part-name {
+  color: var(--theme-accent-dark, #9c4771);
+}
+@media (max-width: 480px) {
+  .theme-picker {
+    gap: 6px;
+  }
+  .theme-option {
+    font-size: .7rem;
+    padding: 7px 3px;
+  }
+}
 </style>
 </head>
 <body>
@@ -53,6 +150,10 @@ h1{font-size:clamp(1.6rem,4vw,2.45rem);margin:8px 0}.intro{color:var(--muted);li
   <div class="field"><label for="chartTitle">표 제목</label><input id="chartTitle" maxlength="70" value="(마이캐 이름) 파츠표"></div>
   <div class="field"><label for="chartNote">설명 (선택)</label><input id="chartNote" maxlength="120" value="마이캐릭터에 대한 설명"></div>
  </div>
+<div class="theme-section">
+  <label class="theme-label">테마 컬러</label>
+  <div id="themePicker" class="theme-picker"></div>
+</div>
  <div class="actions">
   <button class="action primary" id="savePng">PNG로 저장</button>
   <button class="action primary" id="saveJpg">JPG로 저장</button>
@@ -341,6 +442,142 @@ $("savePng").addEventListener("click", () => saveImage("png"));
 $("saveJpg").addEventListener("click", () => saveImage("jpg"));
 
 
+const themes = [
+  {
+    name: "라이트 그린", accent: "#90EE90",
+    dark: "#367A36", bg: "#F5FFF2", soft: "#E5F8E1",
+    surface: "#FFFFFF", preview: "#FAFFF8",
+    line: "#C9EBC4", ink: "#304330", muted: "#71846E",
+    buttonText: "#244D24"
+  },
+  {
+    name: "로열 블루", accent: "#4169E1",
+    dark: "#2D4EAA", bg: "#F3F6FF", soft: "#E5ECFF",
+    surface: "#FFFFFF", preview: "#FAFBFF",
+    line: "#CCD7FA", ink: "#28334F", muted: "#7783A1",
+    buttonText: "#FFFFFF"
+  },
+  {
+    name: "핑크", accent: "#E77CAE",
+    dark: "#9C4771", bg: "#FFF8FB", soft: "#FFF0F7",
+    surface: "#FFFFFF", preview: "#FFFAFD",
+    line: "#EFD8E4", ink: "#392B35", muted: "#8B7A85",
+    buttonText: "#FFFFFF"
+  },
+  {
+    name: "라벤더", accent: "#B39DDB",
+    dark: "#7157A3", bg: "#FAF7FF", soft: "#F0E9FF",
+    surface: "#FFFFFF", preview: "#FDFBFF",
+    line: "#E1D5F5", ink: "#3F3452", muted: "#857994",
+    buttonText: "#38294F"
+  },
+  {
+    name: "민트", accent: "#64CDB4",
+    dark: "#287E6C", bg: "#F2FFFB", soft: "#DFF8F0",
+    surface: "#FFFFFF", preview: "#F9FFFC",
+    line: "#C7EDE2", ink: "#29483F", muted: "#718C83",
+    buttonText: "#204B40"
+  },
+  {
+    name: "하늘색", accent: "#65BDEB",
+    dark: "#2779A7", bg: "#F3FAFF", soft: "#E1F3FF",
+    surface: "#FFFFFF", preview: "#FAFDFF",
+    line: "#CDE8F7", ink: "#2C4050", muted: "#718A99",
+    buttonText: "#24465B"
+  },
+  {
+    name: "레몬", accent: "#E7C94F",
+    dark: "#8C741A", bg: "#FFFEF2", soft: "#FFF8D7",
+    surface: "#FFFFFF", preview: "#FFFFFA",
+    line: "#EFE5B5", ink: "#49432C", muted: "#89815F",
+    buttonText: "#493B0C"
+  },
+  {
+    name: "오렌지", accent: "#F29A62",
+    dark: "#A95424", bg: "#FFF8F2", soft: "#FFEBDD",
+    surface: "#FFFFFF", preview: "#FFFCF8",
+    line: "#F4D8C4", ink: "#4C382D", muted: "#927B6D",
+    buttonText: "#542A13"
+  },
+  {
+    name: "레드", accent: "#E76B78",
+    dark: "#A33B49", bg: "#FFF6F6", soft: "#FFE8EA",
+    surface: "#FFFFFF", preview: "#FFFAFA",
+    line: "#F0D0D3", ink: "#4B3034", muted: "#92777B",
+    buttonText: "#FFFFFF"
+  },
+  {
+    name: "그레이", accent: "#8795A5",
+    dark: "#536170", bg: "#F6F8FA", soft: "#E9EEF3",
+    surface: "#FFFFFF", preview: "#FCFDFE",
+    line: "#D7DDE4", ink: "#343D47", muted: "#7D8791",
+    buttonText: "#FFFFFF"
+  }
+];
+
+const themePicker = $("themePicker");
+const themeRoot = document.documentElement;
+
+function applyTheme(themeName) {
+  const theme = themes.find(item => item.name === themeName) || themes[2];
+
+  const variables = {
+    "--theme-accent": theme.accent,
+    "--theme-accent-dark": theme.dark,
+    "--theme-bg": theme.bg,
+    "--theme-soft": theme.soft,
+    "--theme-surface": theme.surface,
+    "--theme-preview": theme.preview,
+    "--theme-line": theme.line,
+    "--theme-ink": theme.ink,
+    "--theme-muted": theme.muted,
+    "--theme-button-text": theme.buttonText
+  };
+
+  Object.entries(variables).forEach(([key, value]) => {
+    themeRoot.style.setProperty(key, value);
+  });
+
+  themePicker.querySelectorAll(".theme-option").forEach(button => {
+    button.setAttribute(
+      "aria-pressed",
+      String(button.dataset.theme === theme.name)
+    );
+  });
+
+  try {
+    localStorage.setItem("aipri-parts-theme", theme.name);
+  } catch (error) {
+    // 저장이 제한된 환경에서도 테마 변경은 작동합니다.
+  }
+}
+
+themes.forEach(theme => {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "theme-option";
+  button.dataset.theme = theme.name;
+  button.setAttribute("aria-pressed", "false");
+  button.style.setProperty("--swatch", theme.accent);
+  button.innerHTML =
+    '<span class="theme-swatch"></span>' + theme.name;
+
+  button.addEventListener("click", () => {
+    applyTheme(theme.name);
+  });
+
+  themePicker.appendChild(button);
+});
+
+let savedTheme = "핑크";
+
+try {
+  savedTheme = localStorage.getItem("aipri-parts-theme") || "핑크";
+} catch (error) {
+  // 기본 테마 사용
+}
+
+applyTheme(savedTheme);
 buildCards();
 </script>
 </body>
