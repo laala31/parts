@@ -201,7 +201,9 @@ window.PARTS_CONFIG = [
      { name: "용기 쥬얼 옐로", file: "images/hair-color/88.webp" },
   ]},
   { id: "highlights", name: "메시 타입", images: [
-    // { name: "브릿지 이름", file: "images/highlights/highlights-a.png" },
+     { name: "가는 메시", file: "images/highlights/1.webp" },
+     { name: "이너 컬러", file: "images/highlights/2.webp" },
+     { name: "그러데이션", file: "images/highlights/3.webp" },
   ]},
   { id: "highlight-color", name: "메시 컬러", images: [
      { name: "뷰티 블랙", file: "images/hair-color/1.webp" },
