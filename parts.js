@@ -564,33 +564,33 @@ window.PARTS_CONFIG = [
      { name: "용기", file: "images/onegai-jewel/yuuki.webp" },
      { name: "정열", file: "images/onegai-jewel/jounetu.webp" },
      { name: "희망", file: "images/onegai-jewel/kibou.webp" },
-     { name: "소라 모델", file: "images/onegai-jewel/1.webp" }
-     { name: "초아 모델", file: "images/onegai-jewel/2.webp" }
-     { name: "세빈 모델", file: "images/onegai-jewel/3.webp" }
-     { name: "리리아 모델", file: "images/onegai-jewel/4.webp" }
-     { name: "태리 모델", file: "images/onegai-jewel/5.webp" }
-     { name: "아이리 모델", file: "images/onegai-jewel/6.webp" }
-     { name: "링링 모델", file: "images/onegai-jewel/7.webp" }
-     { name: "치이 모델", file: "images/onegai-jewel/8.webp" }
-     { name: "프린세스 모델", file: "images/onegai-jewel/9.webp" }
-     { name: "주리아 R모델", file: "images/onegai-jewel/10.webp" }
-     { name: "엘리 R모델", file: "images/onegai-jewel/11.webp" }
-     { name: "소라 R모델", file: "images/onegai-jewel/12.webp" }
-     { name: "초아 R모델", file: "images/onegai-jewel/13.webp" }
-     { name: "은하 R모델", file: "images/onegai-jewel/14.webp" }
-     { name: "혜성 R모델", file: "images/onegai-jewel/15.webp" }
-     { name: "비비 R모델", file: "images/onegai-jewel/16.webp" }
-     { name: "치이 R모델", file: "images/onegai-jewel/17.webp" }
-     { name: "링 R모델", file: "images/onegai-jewel/18.webp" }
-     { name: "리리아 R모델", file: "images/onegai-jewel/19.webp" }
-     { name: "다크 치이 모델", file: "images/onegai-jewel/20.webp" }
-     { name: "다크 세빈 모델", file: "images/onegai-jewel/21.webp" }
-     { name: "다크 태리 모델", file: "images/onegai-jewel/22.webp" }
-     { name: "다크 아이리 모델", file: "images/onegai-jewel/23.webp" }
-     { name: "다크 링링 모델", file: "images/onegai-jewel/24.webp" }
-     { name: "세빈 R모델", file: "images/onegai-jewel/25.webp" }
-     { name: "태리 R모델", file: "images/onegai-jewel/26.webp" }
-     { name: "아이리 R모델", file: "images/onegai-jewel/27.webp" }
-     { name: "링링 R모델", file: "images/onegai-jewel/28.webp" }
+     { name: "소라 모델", file: "images/onegai-jewel/1.webp" },
+     { name: "초아 모델", file: "images/onegai-jewel/2.webp" },
+     { name: "세빈 모델", file: "images/onegai-jewel/3.webp" },
+     { name: "리리아 모델", file: "images/onegai-jewel/4.webp" },
+     { name: "태리 모델", file: "images/onegai-jewel/5.webp" },
+     { name: "아이리 모델", file: "images/onegai-jewel/6.webp" },
+     { name: "링링 모델", file: "images/onegai-jewel/7.webp" },
+     { name: "치이 모델", file: "images/onegai-jewel/8.webp" },
+     { name: "프린세스 모델", file: "images/onegai-jewel/9.webp" },
+     { name: "주리아 R모델", file: "images/onegai-jewel/10.webp" },
+     { name: "엘리 R모델", file: "images/onegai-jewel/11.webp" },
+     { name: "소라 R모델", file: "images/onegai-jewel/12.webp" },
+     { name: "초아 R모델", file: "images/onegai-jewel/13.webp" },
+     { name: "은하 R모델", file: "images/onegai-jewel/14.webp" },
+     { name: "혜성 R모델", file: "images/onegai-jewel/15.webp" },
+     { name: "비비 R모델", file: "images/onegai-jewel/16.webp" },
+     { name: "치이 R모델", file: "images/onegai-jewel/17.webp" },
+     { name: "링 R모델", file: "images/onegai-jewel/18.webp" },
+     { name: "리리아 R모델", file: "images/onegai-jewel/19.webp" },
+     { name: "다크 치이 모델", file: "images/onegai-jewel/20.webp" },
+     { name: "다크 세빈 모델", file: "images/onegai-jewel/21.webp" },
+     { name: "다크 태리 모델", file: "images/onegai-jewel/22.webp" },
+     { name: "다크 아이리 모델", file: "images/onegai-jewel/23.webp" },
+     { name: "다크 링링 모델", file: "images/onegai-jewel/24.webp" },
+     { name: "세빈 R모델", file: "images/onegai-jewel/25.webp" },
+     { name: "태리 R모델", file: "images/onegai-jewel/26.webp" },
+     { name: "아이리 R모델", file: "images/onegai-jewel/27.webp" },
+     { name: "링링 R모델", file: "images/onegai-jewel/28.webp" },
   ]}
 ];
