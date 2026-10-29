@@ -401,6 +401,8 @@ window.PARTS_CONFIG = [
      { name: "별무리 크레셴도", file: "images/eye-color/103.webp" },
      { name: "고스트 레이디", file: "images/eye-color/104.webp" },
      { name: "프루티 레몬", file: "images/eye-color/105.webp" },
+     { name: "윈터 주얼", file: "images/eye-color/109.webp" },
+     { name: "제이드 캣 아이", file: "images/eye-color/110.webp" },
      { name: "좋아 주얼 하트 아이", file: "images/eye-color/106.webp" },
      { name: "꿈 주얼 스타 아이", file: "images/eye-color/107.webp" },
      { name: "포츄 블루 아이", file: "images/eye-color/108.webp" },
@@ -472,6 +474,7 @@ window.PARTS_CONFIG = [
      { name: "쥬시 프루츠 데코", file: "images/hair-deco/63.webp" },
      { name: "쁘띠 블랙 리본 데코", file: "images/hair-deco/64.webp" },
      { name: "폭신폭신 애니멀 데코", file: "images/hair-deco/65.webp" },
+     { name: "화이트 스노우 데코", file: "images/hair-deco/67.webp" },
      { name: "컬러풀 도넛 데코", file: "images/hair-deco/66.webp" },
   ]},
   { id: "makeup", name: "메이크업", images: [
