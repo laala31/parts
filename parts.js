@@ -107,6 +107,7 @@ window.PARTS_CONFIG = [
      { name: "소녀 하프 업", file: "images/back-hair/37.webp" },
      { name: "심포니 사이드", file: "images/back-hair/38.webp" },
      { name: "부드럽게 말린 트윈테일", file: "images/back-hair/39.webp" },
+     { name: "사이드 당고 롱", file: "images/back-hair/40.webp" },
   ]},
   { id: "hair-color", name: "헤어컬러", images: [
      { name: "뷰티 블랙", file: "images/hair-color/1.webp" },
