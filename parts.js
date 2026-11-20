@@ -91,7 +91,7 @@ window.PARTS_CONFIG = [
      { name: "세빈 포니테일", file: "images/back-hair/21.webp" },
      { name: "볼륨 트윈테일", file: "images/back-hair/22.webp" },
      { name: "태리 브레이드", file: "images/back-hair/23.webp" },
-     { name: "빙그르 하프 업", file: "images/back-hair/24.webp" },
+     { name: "트위스트 하프업", file: "images/back-hair/24.webp" },
      { name: "아이리 쇼트커트", file: "images/back-hair/25.webp" },
      { name: "리본 웨이브", file: "images/back-hair/26.webp" },
      { name: "링링 당고", file: "images/back-hair/27.webp" },
