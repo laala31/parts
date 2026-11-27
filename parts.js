@@ -66,6 +66,7 @@ window.PARTS_CONFIG = [
      { name: "아가씨 웨이브", file: "images/bangs/ojou.webp" },
      { name: "M자 뱅", file: "images/bangs/mji.webp" },
      { name: "뿅뿅 인테크", file: "images/bangs/pyon.webp" },
+     { name: "러프 풀뱅", file: "images/bangs/rafu.webp" },
   ]},
   { id: "back-hair", name: "뒷머리", images: [
      { name: "큐티 트윈테일", file: "images/back-hair/1.webp" },
@@ -108,6 +109,7 @@ window.PARTS_CONFIG = [
      { name: "심포니 사이드", file: "images/back-hair/38.webp" },
      { name: "부드럽게 말린 트윈테일", file: "images/back-hair/39.webp" },
      { name: "사이드 당고 롱", file: "images/back-hair/40.webp" },
+     { name: "에어리 매쉬", file: "images/back-hair/41.webp" },
   ]},
   { id: "hair-color", name: "헤어컬러", images: [
      { name: "뷰티 블랙", file: "images/hair-color/1.webp" },
@@ -295,6 +297,7 @@ window.PARTS_CONFIG = [
      { name: "베이비 블루", file: "images/hair-color/86.webp" },
      { name: "우정 쥬얼 그린", file: "images/hair-color/87.webp" },
      { name: "용기 쥬얼 옐로", file: "images/hair-color/88.webp" },
+     { name: "플라밍고 핑크", file: "images/hair-color/89.webp" },
   ]},
   { id: "eye-color", name: "아이컬러", images: [
      { name: "평온한 우드", file: "images/eye-color/1.webp" },
@@ -407,6 +410,8 @@ window.PARTS_CONFIG = [
      { name: "좋아 주얼 하트 아이", file: "images/eye-color/106.webp" },
      { name: "꿈 주얼 스타 아이", file: "images/eye-color/107.webp" },
      { name: "포츄 블루 아이", file: "images/eye-color/108.webp" },
+     { name: "프로스트 샤벳", file: "images/eye-color/111.webp" },
+     { name: "버츄얼 코드", file: "images/eye-color/112.webp" },
   ]},
   { id: "hair-deco", name: "헤어데코", images: [
      { name: "없음", file: "images/hair-deco/0.png" },
@@ -477,6 +482,7 @@ window.PARTS_CONFIG = [
      { name: "폭신폭신 애니멀 데코", file: "images/hair-deco/65.webp" },
      { name: "화이트 스노우 데코", file: "images/hair-deco/67.webp" },
      { name: "컬러풀 도넛 데코", file: "images/hair-deco/66.webp" },
+     { name: "엑스자 데코", file: "images/hair-deco/68.webp" },
   ]},
   { id: "makeup", name: "메이크업", images: [
      { name: "없음", file: "images/makeup/0.png" },
@@ -534,6 +540,7 @@ window.PARTS_CONFIG = [
      { name: "핼러윈 나이트", file: "images/makeup/52.webp" },
      { name: "정열 주얼 레드 메이크업", file: "images/makeup/53.webp" },
      { name: "희망 주얼 퍼플 메이크업", file: "images/makeup/54.webp" },
+     { name: "포츄 반짝반짝 메이크", file: "images/makeup/55.webp" },
   ]},
   { id: "one-point", name: "원포인트", images: [
      { name: "없음", file: "images/one-point/0.png" },
@@ -562,6 +569,7 @@ window.PARTS_CONFIG = [
      { name: "서머 드롭 선글라스", file: "images/one-point/23.webp" },
      { name: "구미구미 스티커", file: "images/one-point/24.webp" },
      { name: "고딕 하트 아이패치", file: "images/one-point/25.webp" },
+     { name: "여신의 포츄 장식", file: "images/one-point/26.webp" },
   ]},
   { id: "onegai-jewel", name: "오네가이 쥬얼OR아이프리 밴드", images: [
      { name: "좋아", file: "images/onegai-jewel/suki.webp" },
@@ -570,6 +578,7 @@ window.PARTS_CONFIG = [
      { name: "용기", file: "images/onegai-jewel/yuuki.webp" },
      { name: "정열", file: "images/onegai-jewel/jounetu.webp" },
      { name: "희망", file: "images/onegai-jewel/kibou.webp" },
+     { name: "기적", file: "images/onegai-jewel/kiseki.webp" },
      { name: "소라 모델", file: "images/onegai-jewel/1.webp" },
      { name: "초아 모델", file: "images/onegai-jewel/2.webp" },
      { name: "세빈 모델", file: "images/onegai-jewel/3.webp" },
